@@ -3,7 +3,7 @@ import pandas as pd
 import folium
 
 def map():
-    school = pd.read_csv("/content/인천광역시 남동구_고등학교_20240325.csv", encoding="cp949")
+    school = pd.read_csv("인천광역시 남동구_고등학교_20240325.csv", encoding="cp949")
     
     tooltip = "클릭해보세요"
     
