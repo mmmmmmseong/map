@@ -4,5 +4,5 @@ import map
 
 m = map.map()
 
-st_folium(m, width=700, height=500)
+st_folium(m, width=1000, height=700)
 
