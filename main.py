@@ -1,3 +1,5 @@
 import streamlit as st
+import map.py as map
 
-st.text("hello")
+data = map.get_data()
+st.write(data)
