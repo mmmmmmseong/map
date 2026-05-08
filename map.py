@@ -40,7 +40,7 @@ def map():
                 <br>\
                 <br>\
                 {s_tel}\
-            </h6>", max_width=300),
+            </h6>", max_width=600),
             tooltip= s_name,
             icon = icon
         ).add_to(m)
