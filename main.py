@@ -10,9 +10,9 @@ st.header("남동고등학교 인근 지도")
 
 
 toggle_map1 = st.toggle("지도 보기", value=True)
-toggle_tile = st.toggle("OpenStreetMap 타일 사용", value=False)
+toggle_tile = st.toggle("간소화 지도 사용", value=True)
 
-tile_name = "OpenStreetMap" if toggle_tile else "Cartodb Positron"
+tile_name = "Cartodb Positron" if toggle_tile else "OpenStreetMap"
 
 if toggle_map1:
     m = map.map(tiles=tile_name)
