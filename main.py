@@ -15,8 +15,10 @@ toggle_map = st.toggle("지도 보기", value=True)
 if toggle_map:
     st_folium(m, use_container_width=True, height=500)
 
-df = pd.pd.read_csv("인천광역시 남동구_고등학교_20240325.csv", encoding="cp949")
+df = pd.read_csv("인천광역시 남동구_고등학교_20240325.csv", encoding="cp949")
 df_lation = df[['위도', '경도']]
+df_lation = df_lation.rename(columns={'위도': 'lat', '경도': 'lon'})
+st.map(df_lation)
 
 
 
