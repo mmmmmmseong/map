@@ -5,5 +5,5 @@ import map
 st.set_page_config(layout="wide")
 m = map.map()
 
-st_folium(m, width=1500, height=600)
+st_folium(m, use_container_width=True, height=500)
 
