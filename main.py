@@ -7,6 +7,6 @@ st.set_page_config(layout="wide")
 m = map.map()
 
 st.title("Highschool Map")
-st.text("Highschool Map")
+st.text("Incheon - Namdong")
 st_folium(m, use_container_width=True, height=500)
 
