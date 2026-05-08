@@ -2,15 +2,15 @@ import streamlit as st
 import pandas as pd
 import folium
 
-def map():
+def map(tiles="Cartodb Positron"):
     school = pd.read_csv("인천광역시 남동구_고등학교_20240325.csv", encoding="cp949")
     
     tooltip = "클릭해보세요"
     
     m = folium.Map(
-    location=[37.406046, 126.721473],
-    zoom_start = 11.9,
-    tiles='Cartodb Positron'
+        location=[37.406046, 126.721473],
+        zoom_start=11.9,
+        tiles=tiles
     )
     
     m.save('index.html')
@@ -41,7 +41,7 @@ def map():
                 <br>\
                 {s_tel}\
             </h6>", max_width=600),
-            tooltip= s_name,
+            tooltip = s_name,
             icon = icon
         ).add_to(m)
 
