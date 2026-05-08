@@ -1,4 +1,4 @@
 import streamlit as st
 import map
-data = map.get_data()
+data = map.map()
 st.write(data)
