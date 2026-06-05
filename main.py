@@ -12,6 +12,7 @@ toggle_map1 = st.sidebar.toggle("지도 보기", value=True)
 toggle_tile = st.sidebar.toggle("간소화 지도 사용", value=False)
 toggle_schools = st.sidebar.toggle("인근 학교 표시", value=True)
 toggle_paths = st.sidebar.toggle("등산로 지점 표시", value=True)
+toggle_pline = st.sidebar.toggle("등산로 연결선 표시", value=False)
 
 tile_name = "Cartodb Positron" if toggle_tile else "OpenStreetMap"
 

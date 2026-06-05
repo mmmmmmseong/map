@@ -2,9 +2,10 @@ import streamlit as st
 import pandas as pd
 import folium
 
-def map(tiles="Cartodb Positron", show_schools=True, show_paths=True):
+def map(tiles="Cartodb Positron", show_schools=True, show_paths=True, show_pline=False):
     school = pd.read_csv("인천광역시 남동구_고등학교_20240325.csv", encoding="cp949")
-    
+    path = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
+
     tooltip = "클릭해보세요"
     
     m = folium.Map(
@@ -47,23 +48,24 @@ def map(tiles="Cartodb Positron", show_schools=True, show_paths=True):
             ).add_to(m)
     
     if show_paths:
-        try:
-            path = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
-            for i in range(len(path)):
-                p_data = path.iloc[i]
-                p_name = p_data["위치명"]
-                p_loc = [p_data["위도"], p_data["경도"]]
-                p_order = p_data["연번"]
-                
-                icon = folium.Icon(color="red", icon="info-sign")
-                
-                folium.Marker(
-                    location = p_loc,
-                    popup = folium.Popup(f"<h4><strong>{p_order}. {p_name}</strong></h4>", max_width=300),
-                    tooltip = p_name,
-                    icon = icon
-                ).add_to(m)
-        except Exception as e:
-            print(f"등산로 데이터 로드 오류: {e}")
+        for i in range(len(path)):
+            p_data = path.iloc[i]
+            p_name = p_data["위치명"]
+            p_loc = [p_data["위도"], p_data["경도"]]
+            p_order = p_data["연번"]
+            
+            icon = folium.Icon(color="red", icon="info-sign")
+            
+            folium.Marker(
+                location = p_loc,
+                popup = folium.Popup(f"<h4><strong>{p_order}. {p_name}</strong></h4>", max_width=300),
+                tooltip = p_name,
+                icon = icon
+            ).add_to(m)
+
+    if show_pline:
+        path_points = path[["위도", "경도"]].values.tolist()
+        folium.PolyLine(path_points, color="red", weight=2.5, opacity=1).add_to(m)
+    
 
     return m
