@@ -6,8 +6,12 @@ import map
 st.set_page_config(page_title="남동고 등산 메이트", layout="wide")
 
 st.title("2026 학교 등산 행사 지도 ⛰️")
-st.header("남동고등학교 인근 지도")
 
+st.markdown("### ⚙️ 지도 설정")
+st.markdown("""
+<div style="background-color: rgba(128, 128, 128, 0.15); padding: 15px; border-radius: 8px;">
+</div>
+""", unsafe_allow_html=True)
 
 col1, col2, col3, col4 = st.columns(4)
 with col1:
