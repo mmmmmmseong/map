@@ -4,7 +4,8 @@ import folium
 
 def map(tiles="Cartodb Positron", show_schools=True, show_paths=True):
     school = pd.read_csv("인천광역시 남동구_고등학교_20240325.csv", encoding="cp949")
-    path = pd.read_csv("PathMap.csv", encoding="cp949")
+    path = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
+    
     tooltip = "클릭해보세요"
     
     m = folium.Map(
@@ -47,14 +48,13 @@ def map(tiles="Cartodb Positron", show_schools=True, show_paths=True):
             ).add_to(m)
     
     if show_paths:
-        
         for i in range(len(path)):
             p_data = path.iloc[i]
             p_name = p_data["위치명"]
             p_loc = [p_data["위도"], p_data["경도"]]
             p_order = p_data["연번"]
             
-            icon = folium.Icon(color="red", icon="info-sign", prefix="fa")
+            icon = folium.Icon(color="red", icon="info-sign")
             
             folium.Marker(
                 location = p_loc,
