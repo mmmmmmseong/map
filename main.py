@@ -10,7 +10,6 @@ st.title("2026 학교 등산 행사 지도 ⛰️")
 st.markdown("### ⚙️ 지도 설정")
 st.markdown("""
 <div style="background-color: rgba(128, 128, 128, 0.15); padding: 15px; border-radius: 8px;">
-</div>
 """, unsafe_allow_html=True)
 
 col1, col2, col3, col4 = st.columns(4)
@@ -22,6 +21,8 @@ with col3:
     toggle_schools = st.toggle("인근 학교 표시", value=True)
 with col4:
     toggle_paths = st.toggle("등산로 지점 표시", value=True)
+
+st.markdown("</div>", unsafe_allow_html=True)
 
 tile_name = "Cartodb Positron" if toggle_tile else "OpenStreetMap"
 
