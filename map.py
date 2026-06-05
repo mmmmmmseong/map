@@ -58,7 +58,7 @@ def map(tiles="Cartodb Positron", show_schools=True, show_paths=True, show_pline
             
             folium.Marker(
                 location = p_loc,
-                popup = folium.Popup(f"<h4><strong>{p_order}. {p_name}</strong></h4>", max_width=300),
+                #popup = folium.Popup(f"<h4><strong>{p_order}. {p_name}</strong></h4>", max_width=300),
                 tooltip = p_name,
                 icon = icon
             ).add_to(m)
