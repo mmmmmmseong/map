@@ -4,7 +4,7 @@ import folium
 
 def map(tiles="Cartodb Positron", show_schools=True, show_paths=True):
     school = pd.read_csv("인천광역시 남동구_고등학교_20240325.csv", encoding="cp949")
-    
+    path = pd.read_csv("PathMap.csv", encoding="cp949")
     tooltip = "클릭해보세요"
     
     m = folium.Map(
@@ -47,7 +47,7 @@ def map(tiles="Cartodb Positron", show_schools=True, show_paths=True):
             ).add_to(m)
     
     if show_paths:
-        path = pd.read_csv("PathMap.csv", encoding="cp949")
+        
         for i in range(len(path)):
             p_data = path.iloc[i]
             p_name = p_data["위치명"]
