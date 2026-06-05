@@ -4,7 +4,7 @@ import folium
 
 def map(tiles="Cartodb Positron", show_schools=True, show_paths=True):
     school = pd.read_csv("인천광역시 남동구_고등학교_20240325.csv", encoding="cp949")
-    path = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
+    path = pd.read_csv("PathMap.csv", encoding="cp949")
     
     tooltip = "클릭해보세요"
     
