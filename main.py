@@ -7,22 +7,11 @@ st.set_page_config(page_title="남동고 등산 메이트", layout="wide")
 
 st.title("2026 학교 등산 행사 지도 ⛰️")
 
-st.markdown("### ⚙️ 지도 설정")
-st.markdown("""
-<div style="background-color: rgba(128, 128, 128, 0.15); padding: 15px; border-radius: 8px;">
-""", unsafe_allow_html=True)
-
-col1, col2, col3, col4 = st.columns(4)
-with col1:
-    toggle_map1 = st.toggle("지도 보기", value=True)
-with col2:
-    toggle_tile = st.toggle("간소화 지도 사용", value=True)
-with col3:
-    toggle_schools = st.toggle("인근 학교 표시", value=True)
-with col4:
-    toggle_paths = st.toggle("등산로 지점 표시", value=True)
-
-st.markdown("</div>", unsafe_allow_html=True)
+st.sidebar.title("설정")
+toggle_map1 = st.sidebar.toggle("지도 보기", value=True)
+toggle_tile = st.sidebar.toggle("간소화 지도 사용", value=True)
+toggle_schools = st.sidebar.toggle("인근 학교 표시", value=True)
+toggle_paths = st.sidebar.toggle("등산로 지점 표시", value=True)
 
 tile_name = "Cartodb Positron" if toggle_tile else "OpenStreetMap"
 
