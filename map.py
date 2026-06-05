@@ -47,7 +47,7 @@ def map(tiles="Cartodb Positron", show_schools=True, show_paths=True):
             ).add_to(m)
     
     if show_paths:
-        path = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
+        path = pd.read_csv("PathMap.csv", encoding="cp949")
         for i in range(len(path)):
             p_data = path.iloc[i]
             p_name = p_data["위치명"]
