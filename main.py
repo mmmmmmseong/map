@@ -19,11 +19,6 @@ if toggle_map1:
     m = map.map(tiles=tile_name, show_schools=toggle_schools)
     st_folium(m, use_container_width=True, height=500)
 
-
-
-
-
-
 #####################################################################################################
 
 df = pd.read_csv("인천광역시 남동구_고등학교_20240325.csv", encoding="cp949")

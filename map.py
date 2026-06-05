@@ -24,12 +24,12 @@ def map(tiles="Cartodb Positron", show_schools=True):
             s_adress = s_data["주소"]
             s_page = s_data["홈페이지"]
             s_tel = s_data["연락처"]
-        
-        icon=folium.Icon(color="gray", icon="info-sign")
-        
-        if s_name == "인천남동고등학교":
-            icon=folium.Icon(color="blue", icon="home")
-        
+            
+            icon=folium.Icon(color="gray", icon="info-sign")
+            
+            if s_name == "인천남동고등학교":
+                icon=folium.Icon(color="blue", icon="home")
+            
             folium.Marker(
                 location = s_loc,
                 popup = folium.Popup(f"\
