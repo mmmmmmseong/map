@@ -9,9 +9,13 @@ st.title("2026 학교 등산 행사 지도 ⛰️")
 st.header("남동고등학교 인근 지도")
 
 
-toggle_map1 = st.toggle("지도 보기", value=True)
-toggle_tile = st.toggle("간소화 지도 사용", value=True)
-toggle_schools = st.toggle("인근 학교 표시", value=True)
+col1, col2, col3 = st.columns(3)
+with col1:
+    toggle_map1 = st.toggle("지도 보기", value=True)
+with col2:
+    toggle_tile = st.toggle("간소화 지도 사용", value=True)
+with col3:
+    toggle_schools = st.toggle("인근 학교 표시", value=True)
 
 tile_name = "Cartodb Positron" if toggle_tile else "OpenStreetMap"
 
