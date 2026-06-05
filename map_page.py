@@ -7,7 +7,7 @@ st.set_page_config(page_title="남동고 등산 메이트", layout="wide")
 
 st.title("2026 학교 등산 행사 지도 ⛰️")
 
-st.sidebar.title("설정")
+st.sidebar.title("메뉴")
 toggle_map1 = st.sidebar.toggle("지도 보기", value=True)
 toggle_tile = st.sidebar.toggle("간소화 지도 사용", value=False)
 toggle_schools = st.sidebar.toggle("인근 학교 표시", value=True)
