@@ -17,7 +17,7 @@ toggle_pline = st.sidebar.toggle("등산로 연결선 표시", value=False)
 tile_name = "Cartodb Positron" if toggle_tile else "OpenStreetMap"
 
 if toggle_map1:
-    m = map.map(tiles=tile_name, show_schools=toggle_schools, show_paths=toggle_paths)
+    m = map.map(tiles=tile_name, show_schools=toggle_schools, show_paths=toggle_paths, show_pline=toggle_pline)
     st_folium(m, use_container_width=True, height=500)
 
 
