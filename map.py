@@ -13,6 +13,17 @@ def map(tiles="Cartodb Positron", show_schools=True, show_paths=True, show_pline
 
     selected_courses = [course for course in selected_courses if course]
 
+    if color is None:
+        color = {
+            "A": "red",
+            "B": "blue",
+            "C": "green",
+            "D": "orange",
+            "E": "purple",
+        }
+    elif not isinstance(color, dict):
+        raise TypeError("color must be a dictionary of course codes to colors")
+
     m = folium.Map(
         location=[37.406046, 126.721473],
         zoom_start=17,
@@ -61,7 +72,7 @@ def map(tiles="Cartodb Positron", show_schools=True, show_paths=True, show_pline
             p_loc = [p_data["위도"], p_data["경도"]]
             course_code = p_data["코스"]
 
-            marker_color = color.get(course_code, color) if isinstance(color, dict) else color
+            marker_color = color.get(course_code, "red")
 
             folium.Marker(
                 location=p_loc,
@@ -75,7 +86,7 @@ def map(tiles="Cartodb Positron", show_schools=True, show_paths=True, show_pline
             for course_code in selected_courses:
                 course_points = filtered_path[filtered_path["코스"] == course_code][["위도", "경도"]].values.tolist()
                 if course_points:
-                    line_color = color.get(course_code, color) if isinstance(color, dict) else color
-                    folium.PolyLine(course_points, color=line_color or "red", weight=2.5, opacity=1).add_to(m)
+                    line_color = color.get(course_code, "red")
+                    folium.PolyLine(course_points, color=line_color, weight=2.5, opacity=1).add_to(m)
 
     return m
