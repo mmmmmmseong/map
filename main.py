@@ -26,7 +26,7 @@ course_colors = {
     "A": "red",
     "B": "pink",
     "C": "green",
-    "D": "white",
+    "D": "orange",
     "E": "purple",
 }
 
