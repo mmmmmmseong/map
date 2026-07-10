@@ -76,16 +76,6 @@ def map(tiles="Cartodb Positron", show_schools=True, show_paths=True, show_pline
 
             folium.Marker(
                 location=p_loc,
-                popup=folium.Popup(
-                    f"\
-                    <h4><strong>{p_name}</strong></h4>\
-                    <h6>\
-                        {course_code}코스\
-                        <br>\
-                        소요시간: {p_data['소요시간']}\
-                    </h6>",
-                    max_width=600
-                ),
                 tooltip=p_name,
                 icon=folium.Icon(color=marker_color, icon="info-sign"),
             ).add_to(m)
