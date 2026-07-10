@@ -41,7 +41,7 @@ if show_map:
         show_schools=show_schools,
         show_paths=show_paths and bool(selected_courses),
         show_pline=show_pline and bool(selected_courses),
-        selected_courses=selected_courses,
+        selected_courses=selected_courses
     )
     st_folium(m, use_container_width=True, height=500)
 
