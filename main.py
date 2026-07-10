@@ -21,17 +21,25 @@ with st.sidebar.expander("코스", expanded=True):
     show_course_d = st.toggle("D코스", value=False)
     show_course_e = st.toggle("E코스", value=False)
 
-selected_courses = [
-    course_code
-    for course_code, is_enabled in [
-        ("A", show_course_a),
-        ("B", show_course_b),
-        ("C", show_course_c),
-        ("D", show_course_d),
-        ("E", show_course_e),
-    ]
-    if is_enabled
-]
+selected_courses = []
+course_colors = {
+    "A": "red",
+    "B": "pink",
+    "C": "green",
+    "D": "white",
+    "E": "purple",
+}
+
+if show_course_a:
+    selected_courses.append("A")
+if show_course_b:
+    selected_courses.append("B")
+if show_course_c:
+    selected_courses.append("C")
+if show_course_d:
+    selected_courses.append("D")
+if show_course_e:
+    selected_courses.append("E")
 
 tile_name = "Cartodb Positron" if use_simple_tiles else "OpenStreetMap"
 
@@ -41,7 +49,8 @@ if show_map:
         show_schools=show_schools,
         show_paths=show_paths and bool(selected_courses),
         show_pline=show_pline and bool(selected_courses),
-        selected_courses=selected_courses
+        selected_courses=selected_courses,
+        color=course_colors,
     )
     st_folium(m, use_container_width=True, height=500)
 
