@@ -40,7 +40,12 @@ def render_sidebar():
     path_data = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
     unique_courses = path_data["코스"].dropna().unique().tolist()
     course_options = ["전체 코스 보기"] + unique_courses
-    selected_course = st.selectbox("가고 싶은 코스를 선택하세요", course_options)
+    default_course_index = course_options.index("A") if "A" in course_options else 0
+    selected_course = st.selectbox(
+        "가고 싶은 코스를 선택하세요",
+        course_options,
+        index=default_course_index,
+    )
 
     if selected_course == "전체 코스 보기":
         selected_courses = unique_courses
