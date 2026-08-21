@@ -73,9 +73,6 @@ def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_co
             p_loc = [p_data["위도"], p_data["경도"]]
             course_code = p_data["코스"]
 
-            if show_all_courses and p_name == "정상" and course_code != "A":
-                continue
-
             marker_color = color.get(course_code, "red")
 
             if p_name == "입구":
