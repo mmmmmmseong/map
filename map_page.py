@@ -32,6 +32,10 @@ if show_map:
         selected_courses=selected_courses,
         color=course_colors,
     )
+    if selected_courses:
+        path_data = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
+        filtered_path = path_data[path_data["코스"].isin(selected_courses)]
+
     map_column, info_column = st.columns([1.7, 1], gap="large")
 
     with map_column:
@@ -39,9 +43,6 @@ if show_map:
 
     with info_column:
         if selected_courses:
-            path_data = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
-            filtered_path = path_data[path_data["코스"].isin(selected_courses)]
-
             for course_code in selected_courses:
                 info = map.course_info.get(f"{course_code}코스", {})
                 st.subheader(f"{course_code}코스 안내")
@@ -50,16 +51,26 @@ if show_map:
                 st.warning(
                     f"💊 **주의사항**: {info.get('caution', '등산화를 착용하세요.') }"
                 )
+        else:
+            st.info("선택된 코스가 없습니다.")
 
-                st.markdown("---")
-                st.subheader("📸 지점별 포인트 사진")
-                course_path = filtered_path[filtered_path["코스"] == course_code]
+    if selected_courses:
+        st.markdown("---")
+        st.subheader("📸 지점별 포인트 사진")
+        for course_code in selected_courses:
+            course_path = filtered_path[filtered_path["코스"] == course_code]
+            with st.expander(
+                f"{course_code}코스 지점별 포인트 사진",
+                expanded=False,
+            ):
                 for _, row in course_path.iterrows():
                     st.write(f"📍 **{row['위치명']}**")
                     image_path = row.get("이미지")
                     if isinstance(image_path, str) and image_path:
-                        st.image(image_path, caption=row["위치명"], use_container_width=True)
+                        st.image(
+                            image_path,
+                            caption=row["위치명"],
+                            use_container_width=True,
+                        )
                     else:
                         st.caption("📷 *(해당 지점 이미지 파일 준비 중)*")
-        else:
-            st.info("선택된 코스가 없습니다.")
