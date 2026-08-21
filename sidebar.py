@@ -41,7 +41,7 @@ def render_sidebar():
     unique_courses = path_data["코스"].dropna().unique().tolist()
     course_options = ["전체 코스 보기"] + unique_courses
     default_course_index = course_options.index("A") if "A" in course_options else 0
-    selected_course = st.selectbox(
+    selected_course = st.sidebar.selectbox(
         "가고 싶은 코스를 선택하세요",
         course_options,
         index=default_course_index,
