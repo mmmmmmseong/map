@@ -46,7 +46,7 @@ if show_map:
             for course_code in selected_courses:
                 info = map.course_info.get(f"{course_code}코스", {})
                 st.subheader(f"{course_code}코스 안내")
-                st.info(f"🔔 {info.get('notice', '즐거운 등산 되세요!')}")
+                st.write(f"🔔 {info.get('notice', '즐거운 등산 되세요!')}")
                 st.metric(label="⏱️ 예상 소요시간", value=info.get("time", "-"))
                 st.warning(
                     f"💊 **주의사항**: {info.get('caution', '등산화를 착용하세요.') }"
