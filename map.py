@@ -47,7 +47,6 @@ def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_co
         selected_courses = [selected_courses]
 
     selected_courses = [course for course in selected_courses if course]
-    show_all_courses = set(selected_courses) == {"A", "B", "C", "D", "E"}
 
     if color is None:
         color = {
