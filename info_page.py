@@ -3,4 +3,4 @@ import sidebar
 
 sidebar.render_sidebar()
 st.title("산행 안내")
-st.write("여기에 설명 내용...")
+st.write("...")

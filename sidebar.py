@@ -25,16 +25,16 @@ def render_sidebar():
     _style_sidebar()
     st.sidebar.title("메뉴")
 
-    if st.sidebar.button("지도", icon="🗺️", use_container_width=True):
+    if st.sidebar.button("지도", use_container_width=True):
         st.switch_page("map_page.py")
-    if st.sidebar.button("산행 안내", icon="ℹ️", use_container_width=True):
+    if st.sidebar.button("안내", icon="ℹ️", use_container_width=True):
         st.switch_page("info_page.py")
 
     with st.sidebar.expander("설정", expanded=False):
         show_map = st.toggle("지도 보기", value=True)
         use_simple_tiles = st.toggle("간소화 지도 사용", value=False)
         show_paths = st.toggle("등산로 지점 표시", value=True)
-        show_pline = st.toggle("등산로 연결선 표시", value=False)
+        show_pline = st.toggle("등산로 연결선 표시", value=True)
 
     with st.sidebar.expander("코스", expanded=False):
         show_course_a = st.toggle("A코스", value=True)
