@@ -2,7 +2,7 @@ import pandas as pd
 import folium
 
 
-def map(tiles="Cartodb Positron", show_schools=True, show_paths=True, show_pline=False, selected_courses=None, color=None):
+def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_courses=None, color=None):
     school = pd.read_csv("인천광역시 남동구_고등학교_20240325.csv", encoding="cp949")
     path = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
 
@@ -31,39 +31,6 @@ def map(tiles="Cartodb Positron", show_schools=True, show_paths=True, show_pline
     )
 
     m.save("index.html")
-
-    if show_schools:
-        for _, s_data in school.iterrows():
-            s_name = s_data["학교명"]
-            s_loc = [s_data["위도"], s_data["경도"]]
-            s_type = s_data["설립구분"]
-            s_adress = s_data["주소"]
-            s_page = s_data["홈페이지"]
-            s_tel = s_data["연락처"]
-
-            icon = folium.Icon(color="gray", icon="info-sign")
-
-            if s_name == "인천남동고등학교":
-                icon = folium.Icon(color="blue", icon="home")
-
-            folium.Marker(
-                location=s_loc,
-                popup=folium.Popup(
-                    f"\
-                    <h4><strong>{s_name}</strong></h4>\
-                    <h6>\
-                        {s_adress}, {s_type}\
-                        <br>\
-                        <a href='{s_page}'>{s_page}</a>\
-                        <br>\
-                        <br>\
-                        {s_tel}\
-                    </h6>",
-                    max_width=600,
-                ),
-                tooltip=s_name,
-                icon=icon,
-            ).add_to(m)
 
     if show_paths and selected_courses:
         filtered_path = path[path["코스"].isin(selected_courses)]
