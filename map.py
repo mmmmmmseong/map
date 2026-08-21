@@ -60,7 +60,7 @@ def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_co
         raise TypeError("color must be a dictionary of course codes to colors")
 
     m = folium.Map(
-        location=[37.406046, 126.721473],
+        location=[37.407576,126.719651],
         zoom_start=17,
         tiles=tiles
     )
