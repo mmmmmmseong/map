@@ -13,15 +13,8 @@ def _style_sidebar():
             justify-content: flex-start;
             min-height: 2.25rem;
             padding: 0.35rem 0.7rem;
-            border: 1px solid transparent;
-            border-radius: 0.4rem;
             font-weight: 600;
         }
-
-        [data-testid="stSidebar"] .stButton > button:hover {
-            border-color: rgba(49, 51, 63, 0.2);
-        }
-
         </style>
         """,
         unsafe_allow_html=True,
