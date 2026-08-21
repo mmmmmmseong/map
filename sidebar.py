@@ -22,15 +22,6 @@ def _style_sidebar():
             border-color: rgba(49, 51, 63, 0.2);
         }
 
-        [data-testid="stSidebar"] [data-testid="stExpander"] {
-            margin-top: 0.75rem;
-            border-top: 1px solid rgba(49, 51, 63, 0.15);
-            border-radius: 0;
-        }
-
-        [data-testid="stSidebar"] [data-testid="stExpander"] summary {
-            padding-top: 0.75rem;
-        }
         </style>
         """,
         unsafe_allow_html=True,
@@ -40,7 +31,6 @@ def _style_sidebar():
 def render_sidebar():
     _style_sidebar()
     st.sidebar.title("메뉴")
-    st.sidebar.caption("페이지")
 
     if st.sidebar.button("지도", icon="🗺️", use_container_width=True):
         st.switch_page("map_page.py")

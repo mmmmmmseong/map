@@ -4,6 +4,7 @@ import folium
 
 def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_courses=None, color=None):
     path = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
+    path["이미지"] = 'images/' + path['코스'] + path['위치명'] + '.jpg'
 
     if selected_courses is None:
         selected_courses = ["A", "B", "C", "D", "E"]
