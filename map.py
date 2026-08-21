@@ -1,8 +1,5 @@
-import html
-
 import pandas as pd
 import folium
-import streamlit as st
 
 # 2-1. 코스별 세부 정보 사전 설정 (소요시간, 주의사항 등)
 course_info = {
@@ -39,16 +36,8 @@ course_info = {
 }
 
 
-@st.cache_data(show_spinner=False)
-def _load_path_data():
-    path = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
-    path["이미지"] = "images/" + path["코스"] + path["위치명"] + ".jpg"
-    return path
-
-
-@st.cache_resource(show_spinner=False)
 def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_courses=None, color=None):
-    path = _load_path_data()
+    path = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
 
     if selected_courses is None:
         selected_courses = ["A", "B", "C", "D", "E"]
@@ -92,26 +81,10 @@ def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_co
             else:
                 icon = "map-marker"
 
-            img_file = html.escape(str(p_data["이미지"]))
-            popup_html = f"""
-            <div style="width: 200px; text-align: center; font-family: sans-serif;">
-                <h4 style="margin: 5px 0; color: #2c3e50;">
-                    {html.escape(p_name)}
-                </h4>
-                <p style="margin: 2px; font-size: 12px; color: #7f8c8d;">
-                    {html.escape(course_code)}코스
-                </p>
-                <hr style="margin: 5px 0; border: 0; border-top: 1px solid #ddd;">
-                <img src="{img_file}" loading="lazy" width="180"
-                     style="border-radius: 6px; margin-top: 5px;"
-                     onerror="this.style.display='none';">
-            </div>
-            """
-
             folium.Marker(
                 location=p_loc,
-                popup=folium.Popup(popup_html, max_width=220),
-                tooltip=f"{p_name} (클릭 시 사진 보기)",
+                popup=f"{course_code}코스 · {p_name}",
+                tooltip=p_name,
                 icon=folium.Icon(color=marker_color, icon=icon),
             ).add_to(m)
 
