@@ -1,6 +1,4 @@
-import base64
 import html
-from pathlib import Path
 
 import pandas as pd
 import folium
@@ -85,14 +83,7 @@ def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_co
             else:
                 icon = "map-marker"
 
-            image_path = Path(__file__).resolve().parent / "images" / f"{course_code}{p_name}.jpg"
-            image_html = ""
-            if image_path.exists():
-                image_data = base64.b64encode(image_path.read_bytes()).decode("ascii")
-                image_html = (
-                    f'<img src="data:image/jpeg;base64,{image_data}" width="180" '
-                    'style="border-radius: 6px; margin-top: 5px;">'
-                )
+            image_file = f"images/{course_code}{p_name}.jpg"
 
             popup_html = f"""
             <div style="width: 200px; text-align: center; font-family: sans-serif;">
@@ -103,7 +94,9 @@ def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_co
                     {html.escape(course_code)}코스
                 </p>
                 <hr style="margin: 5px 0; border: 0; border-top: 1px solid #ddd;">
-                 {image_html}
+                <img src="{html.escape(image_file)}" width="180"
+                     style="border-radius: 6px; margin-top: 5px;"
+                     onerror="this.style.display='none';">
             </div>
             """
 
