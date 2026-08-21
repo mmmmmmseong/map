@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 
 
 def _style_sidebar():
@@ -37,23 +38,15 @@ def render_sidebar():
         show_pline = st.toggle("등산로 연결선 표시", value=True)
 
     with st.sidebar.expander("코스", expanded=False):
-        show_course_a = st.toggle("A코스", value=True)
-        show_course_b = st.toggle("B코스", value=False)
-        show_course_c = st.toggle("C코스", value=False)
-        show_course_d = st.toggle("D코스", value=False)
-        show_course_e = st.toggle("E코스", value=False)
+        path_data = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
+        unique_courses = path_data["코스"].dropna().unique().tolist()
+        course_options = ["전체 코스 보기"] + unique_courses
+        selected_course = st.selectbox("가고 싶은 코스를 선택하세요", course_options)
 
-    selected_courses = []
-    if show_course_a:
-        selected_courses.append("A")
-    if show_course_b:
-        selected_courses.append("B")
-    if show_course_c:
-        selected_courses.append("C")
-    if show_course_d:
-        selected_courses.append("D")
-    if show_course_e:
-        selected_courses.append("E")
+    if selected_course == "전체 코스 보기":
+        selected_courses = unique_courses
+    else:
+        selected_courses = [selected_course]
 
     return {
         "show_map": show_map,

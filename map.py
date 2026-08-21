@@ -1,3 +1,5 @@
+import html
+
 import pandas as pd
 import folium
 
@@ -81,10 +83,26 @@ def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_co
             else:
                 icon = "map-marker"
 
+            image_file = f"images/{course_code}{p_name}.jpg"
+            popup_html = f"""
+            <div style="width: 200px; text-align: center; font-family: sans-serif;">
+                <h4 style="margin: 5px 0; color: #2c3e50;">
+                    {html.escape(p_name)}
+                </h4>
+                <p style="margin: 2px; font-size: 12px; color: #7f8c8d;">
+                    {html.escape(course_code)}코스
+                </p>
+                <hr style="margin: 5px 0; border: 0; border-top: 1px solid #ddd;">
+                <img src="{html.escape(image_file)}" width="180"
+                     style="border-radius: 6px; margin-top: 5px;"
+                     onerror="this.style.display='none';">
+            </div>
+            """
+
             folium.Marker(
                 location=p_loc,
-                popup=folium.Popup(f"{course_code}코스 · {p_name}", max_width=200),
-                tooltip=p_name,
+                popup=folium.Popup(popup_html, max_width=220),
+                tooltip=f"{p_name} (클릭 시 사진 보기)",
                 icon=folium.Icon(color=marker_color, icon=icon),
             ).add_to(m)
 
