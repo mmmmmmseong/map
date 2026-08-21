@@ -1,45 +1,13 @@
 import streamlit as st
-from streamlit_folium import st_folium
-import map
-import sidebar
+
 
 st.set_page_config(page_title="남동고 등산 메이트", layout="wide")
 
-def map_page():
-    st.title("2026 학교 등산 행사 지도 ⛰️")
-
-    settings = sidebar.render_sidebar()
-    show_map = settings["show_map"]
-    use_simple_tiles = settings["use_simple_tiles"]
-    show_paths = settings["show_paths"]
-    show_pline = settings["show_pline"]
-    selected_courses = settings["selected_courses"]
-
-    course_colors = {
-        "A": "red",
-        "B": "pink",
-        "C": "green",
-        "D": "orange",
-        "E": "purple",
-    }
-
-    tile_name = "Cartodb Positron" if use_simple_tiles else "OpenStreetMap"
-
-    if show_map:
-        m = map.map(
-            tiles=tile_name,
-            show_paths=show_paths and bool(selected_courses),
-            show_pline=show_pline and bool(selected_courses),
-            selected_courses=selected_courses,
-            color=course_colors,
-        )
-        st_folium(m, use_container_width=True, height=500)
-
-
 pages = [
-    st.Page(map_page, title="지도", icon="🗺️"),
+    st.Page("map_page.py", title="지도", icon="🗺️"),
     st.Page("info_page.py", title="산행 안내", icon="ℹ️"),
 ]
+
 navigation = st.navigation(pages, position="hidden")
 navigation.run()
 

@@ -5,7 +5,7 @@ def render_sidebar():
     st.sidebar.title("메뉴")
 
     if st.sidebar.button("지도", icon="🗺️", use_container_width=True):
-        st.switch_page("main.py")
+        st.switch_page("map_page.py")
     if st.sidebar.button("산행 안내", icon="ℹ️", use_container_width=True):
         st.switch_page("info_page.py")
 
