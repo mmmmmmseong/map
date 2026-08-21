@@ -83,7 +83,7 @@ def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_co
 
             folium.Marker(
                 location=p_loc,
-                popup=f"{course_code}코스 · {p_name}",
+                popup=folium.Popup(f"{course_code}코스 · {p_name}", max_width=200),
                 tooltip=p_name,
                 icon=folium.Icon(color=marker_color, icon=icon),
             ).add_to(m)
