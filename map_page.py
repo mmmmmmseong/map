@@ -4,7 +4,8 @@ import map
 import sidebar
 
 
-st.title("2026 등산 행사 지도 ⛰️")
+st.title("학교 등산 행사 지도 ⛰️")
+st.subheader("학교 등산 행사 안내 페이지")
 
 settings = sidebar.render_sidebar()
 show_map = settings["show_map"]
