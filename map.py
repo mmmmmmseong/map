@@ -80,7 +80,7 @@ def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_co
             marker_color = color.get(course_code, "red")
 
             if p_name == "입구":
-                icon = "info-sign"
+                icon = "log-in"
             elif p_name == "정상":
                 icon = "flag"
             elif "이정표" in p_name:
