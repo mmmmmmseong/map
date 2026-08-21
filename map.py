@@ -3,7 +3,6 @@ import folium
 
 
 def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_courses=None, color=None):
-    school = pd.read_csv("인천광역시 남동구_고등학교_20240325.csv", encoding="cp949")
     path = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
 
     if selected_courses is None:
