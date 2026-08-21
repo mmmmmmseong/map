@@ -1,6 +1,4 @@
-import base64
 import html
-from pathlib import Path
 
 import pandas as pd
 import folium
@@ -46,11 +44,6 @@ def _load_path_data():
     path = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
     path["이미지"] = "images/" + path["코스"] + path["위치명"] + ".jpg"
     return path
-
-
-@st.cache_data(show_spinner=False)
-def _load_image_data(image_path):
-    return base64.b64encode(Path(image_path).read_bytes()).decode("ascii")
 
 
 @st.cache_resource(show_spinner=False)
@@ -99,26 +92,26 @@ def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_co
             else:
                 icon = "map-marker"
 
-            image_path = Path(__file__).resolve().parent / p_data["이미지"]
-            if image_path.exists():
-                image_data = _load_image_data(str(image_path))
-                popup_html = (
-                    f'<strong>{html.escape(course_code)}코스 · '
-                    f'{html.escape(p_name)}</strong><br>'
-                    f'<img src="data:image/jpeg;base64,{image_data}" '
-                    'style="width: 150px; height: auto; margin-top: 6px;">'
-                )
-            else:
-                popup_html = (
-                    f'<strong>{html.escape(course_code)}코스 · '
-                    f'{html.escape(p_name)}</strong><br>'
-                    '<small>등록된 사진이 없습니다.</small>'
-                )
+            img_file = html.escape(str(p_data["이미지"]))
+            popup_html = f"""
+            <div style="width: 200px; text-align: center; font-family: sans-serif;">
+                <h4 style="margin: 5px 0; color: #2c3e50;">
+                    {html.escape(p_name)}
+                </h4>
+                <p style="margin: 2px; font-size: 12px; color: #7f8c8d;">
+                    {html.escape(course_code)}코스
+                </p>
+                <hr style="margin: 5px 0; border: 0; border-top: 1px solid #ddd;">
+                <img src="{img_file}" loading="lazy" width="180"
+                     style="border-radius: 6px; margin-top: 5px;"
+                     onerror="this.style.display='none';">
+            </div>
+            """
 
             folium.Marker(
                 location=p_loc,
-                tooltip=p_name,
-                popup=folium.Popup(popup_html, max_width=180),
+                popup=folium.Popup(popup_html, max_width=220),
+                tooltip=f"{p_name} (클릭 시 사진 보기)",
                 icon=folium.Icon(color=marker_color, icon=icon),
             ).add_to(m)
 
