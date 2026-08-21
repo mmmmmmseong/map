@@ -4,6 +4,7 @@ from pathlib import Path
 
 import pandas as pd
 import folium
+import streamlit as st
 
 # 2-1. 코스별 세부 정보 사전 설정 (소요시간, 주의사항 등)
 course_info = {
@@ -39,9 +40,22 @@ course_info = {
     }
 }
 
-def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_courses=None, color=None):
+
+@st.cache_data(show_spinner=False)
+def _load_path_data():
     path = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
-    path["이미지"] = 'images/' + path['코스'] + path['위치명'] + '.jpg'
+    path["이미지"] = "images/" + path["코스"] + path["위치명"] + ".jpg"
+    return path
+
+
+@st.cache_data(show_spinner=False)
+def _load_image_data(image_path):
+    return base64.b64encode(Path(image_path).read_bytes()).decode("ascii")
+
+
+@st.cache_resource(show_spinner=False)
+def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_courses=None, color=None):
+    path = _load_path_data()
 
     if selected_courses is None:
         selected_courses = ["A", "B", "C", "D", "E"]
@@ -67,8 +81,6 @@ def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_co
         tiles=tiles
     )
 
-    m.save("index.html")
-
     if show_paths and selected_courses:
         filtered_path = path[path["코스"].isin(selected_courses)]
         for _, p_data in filtered_path.iterrows():
@@ -89,7 +101,7 @@ def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_co
 
             image_path = Path(__file__).resolve().parent / p_data["이미지"]
             if image_path.exists():
-                image_data = base64.b64encode(image_path.read_bytes()).decode("ascii")
+                image_data = _load_image_data(str(image_path))
                 popup_html = (
                     f'<strong>{html.escape(course_code)}코스 · '
                     f'{html.escape(p_name)}</strong><br>'
