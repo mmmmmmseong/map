@@ -79,10 +79,15 @@ def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_co
 
             marker_color = color.get(course_code, "red")
 
+            if p_name == "입구":
+                icon = "info-sign"
+            else:
+                icon = "flag"
+
             folium.Marker(
                 location=p_loc,
                 tooltip=p_name,
-                icon=folium.Icon(color=marker_color, icon="info-sign"),
+                icon=folium.Icon(color=marker_color, icon=icon),
             ).add_to(m)
 
     if show_pline and selected_courses:
