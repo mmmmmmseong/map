@@ -33,7 +33,21 @@ if show_map:
         selected_courses=selected_courses,
         color=course_colors,
     )
-    map_result = st_folium(map_view, use_container_width=True, height=500)
+    map_column, info_column = st.columns([1.7, 1], gap="large")
+
+    with map_column:
+        map_result = st_folium(map_view, use_container_width=True, height=400)
+
+    with info_column:
+        st.subheader("코스 주의 사항")
+        if selected_courses:
+            for course_code in selected_courses:
+                course = map.course_info.get(f"{course_code}코스")
+                if course:
+                    st.markdown(f"**{course_code}코스**")
+                    st.write(course["caution"])
+        else:
+            st.info("선택된 코스가 없습니다.")
 
     clicked_marker = map_result.get("last_object_clicked")
     if clicked_marker:
