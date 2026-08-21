@@ -37,11 +37,10 @@ def render_sidebar():
         show_paths = st.toggle("등산로 지점 표시", value=True)
         show_pline = st.toggle("등산로 연결선 표시", value=True)
 
-    with st.sidebar.expander("코스", expanded=False):
-        path_data = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
-        unique_courses = path_data["코스"].dropna().unique().tolist()
-        course_options = ["전체 코스 보기"] + unique_courses
-        selected_course = st.selectbox("가고 싶은 코스를 선택하세요", course_options)
+    path_data = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
+    unique_courses = path_data["코스"].dropna().unique().tolist()
+    course_options = ["전체 코스 보기"] + unique_courses
+    selected_course = st.selectbox("가고 싶은 코스를 선택하세요", course_options)
 
     if selected_course == "전체 코스 보기":
         selected_courses = unique_courses
