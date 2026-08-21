@@ -40,6 +40,7 @@ course_info = {
 
 def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_courses=None, color=None):
     path = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
+    path["이미지"] = "images/" + path["코스"] + path["위치명"] + ".jpg"
 
     if selected_courses is None:
         selected_courses = ["A", "B", "C", "D", "E"]
@@ -83,7 +84,7 @@ def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_co
             else:
                 icon = "map-marker"
 
-            image_file = f"images/{course_code}{p_name}.jpg"
+            img_file = p_data["이미지"]
 
             popup_html = f"""
             <div style="width: 200px; text-align: center; font-family: sans-serif;">
@@ -94,9 +95,8 @@ def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_co
                     {html.escape(course_code)}코스
                 </p>
                 <hr style="margin: 5px 0; border: 0; border-top: 1px solid #ddd;">
-                <img src="{html.escape(image_file)}" width="180"
-                     style="border-radius: 6px; margin-top: 5px;"
-                     onerror="this.style.display='none';">
+                 <img src="{img_file}" width="180px"
+                     style="border-radius: 6px; margin-top: 5px;">
             </div>
             """
 
