@@ -1,3 +1,7 @@
+import base64
+import html
+from pathlib import Path
+
 import pandas as pd
 import folium
 
@@ -83,9 +87,26 @@ def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_co
             else:
                 icon = "map-marker"
 
+            image_path = Path(__file__).resolve().parent / p_data["이미지"]
+            if image_path.exists():
+                image_data = base64.b64encode(image_path.read_bytes()).decode("ascii")
+                popup_html = (
+                    f'<strong>{html.escape(course_code)}코스 · '
+                    f'{html.escape(p_name)}</strong><br>'
+                    f'<img src="data:image/jpeg;base64,{image_data}" '
+                    'style="width: 150px; height: auto; margin-top: 6px;">'
+                )
+            else:
+                popup_html = (
+                    f'<strong>{html.escape(course_code)}코스 · '
+                    f'{html.escape(p_name)}</strong><br>'
+                    '<small>등록된 사진이 없습니다.</small>'
+                )
+
             folium.Marker(
                 location=p_loc,
                 tooltip=p_name,
+                popup=folium.Popup(popup_html, max_width=180),
                 icon=folium.Icon(color=marker_color, icon=icon),
             ).add_to(m)
 
