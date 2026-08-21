@@ -81,8 +81,10 @@ def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_co
 
             if p_name == "입구":
                 icon = "info-sign"
-            else:
+            elif p_name == "정상":
                 icon = "flag"
+            elif "이정표" in p_name:
+                icon = "info-sign"
 
             folium.Marker(
                 location=p_loc,
