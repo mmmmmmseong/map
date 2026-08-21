@@ -42,6 +42,11 @@ if show_course_e:
 
 tile_name = "Cartodb Positron" if use_simple_tiles else "OpenStreetMap"
 
+info_page = st.Page("info_page.py", title="산행 안내", icon="info-circle")
+
+nav = st.sidebar.radio("페이지 선택", ["지도", "산행 안내"], index=0)
+nav.run()
+
 if show_map:
     m = map.map(
         tiles=tile_name,
