@@ -28,8 +28,6 @@ def render_sidebar():
 
     if st.sidebar.button("지도", use_container_width=True):
         st.switch_page("map_page.py")
-    with st.sidebar.expander("안내", expanded=False):
-        show_info = st.switch_page("info_page.py")
     if st.sidebar.button("안내", icon="ℹ️", use_container_width=True):
         st.switch_page("info_page.py")
 
