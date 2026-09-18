@@ -2,6 +2,7 @@ import html
 
 import pandas as pd
 import folium
+from branca.element import Element
 
 # 2-1. 코스별 세부 정보 사전 설정 (소요시간, 주의사항 등)
 course_info = {
@@ -38,7 +39,14 @@ course_info = {
 }
 
 
-def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_courses=None, color=None):
+def map(
+    tiles="Cartodb Positron",
+    show_paths=True,
+    show_pline=False,
+    show_location=False,
+    selected_courses=None,
+    color=None,
+):
     path = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
 
     if selected_courses is None:
@@ -114,6 +122,83 @@ def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_co
                 if course_points:
                     line_color = color.get(course_code, "red")
                     folium.PolyLine(course_points, color=line_color, weight=2.5, opacity=1).add_to(m)
+
+    if show_location:
+        location_script = f"""
+        <style>
+            .location-status {{
+                background: white;
+                border: 2px solid rgba(0, 0, 0, 0.2);
+                border-radius: 4px;
+                box-shadow: 0 1px 5px rgba(0, 0, 0, 0.35);
+                color: #333;
+                font: 14px/1.5 sans-serif;
+                padding: 6px 10px;
+            }}
+        </style>
+        <script>
+            window.setTimeout(function () {{
+                var map = {m.get_name()};
+                var status = L.control({{ position: 'topleft' }});
+                var locationMarker;
+                var accuracyCircle;
+
+                status.onAdd = function () {{
+                    var element = L.DomUtil.create('div', 'location-status');
+                    element.textContent = '현재 위치 확인 중...';
+                    return element;
+                }};
+                status.addTo(map);
+
+                if (!navigator.geolocation) {{
+                    status.getContainer().textContent = '브라우저가 위치정보를 지원하지 않습니다.';
+                    return;
+                }}
+
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {{
+                        var location = [
+                            position.coords.latitude,
+                            position.coords.longitude
+                        ];
+                        var accuracy = position.coords.accuracy;
+
+                        accuracyCircle = L.circle(location, {{
+                            radius: accuracy,
+                            color: '#1976d2',
+                            fillColor: '#1976d2',
+                            fillOpacity: 0.12,
+                            weight: 1
+                        }}).addTo(map);
+                        locationMarker = L.circleMarker(location, {{
+                            radius: 8,
+                            color: '#ffffff',
+                            weight: 3,
+                            fillColor: '#1976d2',
+                            fillOpacity: 1
+                        }}).addTo(map);
+                        locationMarker.bindPopup(
+                            '내 위치<br>위도: ' + location[0].toFixed(6) +
+                            '<br>경도: ' + location[1].toFixed(6)
+                        );
+                        map.setView(location, Math.max(map.getZoom(), 16));
+                        status.getContainer().textContent = '현재 위치가 표시되었습니다.';
+                    }},
+                    function (error) {{
+                        var message = '위치정보 이용을 허용해 주세요.';
+                        if (error.code === error.POSITION_UNAVAILABLE) {{
+                            message = '현재 위치를 확인할 수 없습니다.';
+                        }} else if (error.code === error.TIMEOUT) {{
+                            message = '위치 확인 시간이 초과되었습니다.';
+                        }}
+                        status.getContainer().textContent = message;
+                    }},
+                    {{ enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }}
+                );
+            }}, 0);
+        </script>
+        """
+        m.get_root().script.add_child(Element(location_script))
 
     return m
 
