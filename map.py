@@ -198,7 +198,7 @@ def map(
             }}, 0);
         </script>
         """
-        m.get_root().script.add_child(Element(location_script))
+        m.get_root().html.add_child(Element(location_script))
 
     return m
 
