@@ -1,5 +1,5 @@
 from pathlib import Path
 
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
+PROJECT_ROOT = Path(__file__).resolve().parent
 PATH_MAP_FILE = PROJECT_ROOT / "data" / "PathMap.csv"

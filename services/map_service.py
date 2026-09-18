@@ -2,7 +2,7 @@ import html
 
 import pandas as pd
 import folium
-from app import config
+import config
 
 # 2-1. 코스별 세부 정보 사전 설정 (소요시간, 주의사항 등)
 course_info = {

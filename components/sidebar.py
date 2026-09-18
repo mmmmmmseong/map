@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from app import config
+import config
 
 
 def _style_sidebar():

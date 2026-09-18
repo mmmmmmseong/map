@@ -1,9 +1,9 @@
 import streamlit as st
 from streamlit_folium import st_folium
 import pandas as pd
-from app import config
-from app.components import sidebar
-from app.services import map_service
+import config
+from components import sidebar
+from services import map_service
 
 
 st.title("학교 등산 행사 지도 ⛰️")

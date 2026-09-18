@@ -1,5 +1,5 @@
 import streamlit as st
-from app.components import sidebar
+from components import sidebar
 
 sidebar.render_sidebar()
 st.title("산행 안내")
