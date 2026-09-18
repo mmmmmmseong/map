@@ -2,6 +2,7 @@ import html
 
 import pandas as pd
 import folium
+from branca.element import Element
 
 # 2-1. 코스별 세부 정보 사전 설정 (소요시간, 주의사항 등)
 course_info = {
@@ -114,6 +115,114 @@ def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_co
                 if course_points:
                     line_color = color.get(course_code, "red")
                     folium.PolyLine(course_points, color=line_color, weight=2.5, opacity=1).add_to(m)
+
+    location_script = f"""
+    <style>
+        .location-control {{
+            background: white;
+            border: 2px solid rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.35);
+            color: #333;
+            cursor: pointer;
+            font: 14px/1.5 sans-serif;
+            padding: 6px 10px;
+        }}
+        .location-control:disabled {{
+            color: #777;
+            cursor: wait;
+        }}
+        .location-control:hover:not(:disabled) {{
+            background: #f4f4f4;
+        }}
+    </style>
+    <script>
+        window.setTimeout(function () {{
+            var map = {m.get_name()};
+            var locationMarker;
+            var accuracyCircle;
+
+            var LocationControl = L.Control.extend({{
+                options: {{ position: 'topleft' }},
+
+                onAdd: function () {{
+                    var button = L.DomUtil.create('button', 'location-control');
+                    button.type = 'button';
+                    button.title = '브라우저에서 위치정보 이용을 허용하면 현재 위치를 표시합니다.';
+                    button.textContent = '현재 위치 사용';
+
+                    L.DomEvent.disableClickPropagation(button);
+                    L.DomEvent.on(button, 'click', function () {{
+                        if (!navigator.geolocation) {{
+                            button.textContent = '위치 기능 미지원';
+                            return;
+                        }}
+
+                        button.disabled = true;
+                        button.textContent = '위치 확인 중...';
+                        navigator.geolocation.getCurrentPosition(
+                            function (position) {{
+                                var latitude = position.coords.latitude;
+                                var longitude = position.coords.longitude;
+                                var accuracy = position.coords.accuracy;
+                                var location = [latitude, longitude];
+
+                                if (locationMarker) {{
+                                    map.removeLayer(locationMarker);
+                                }}
+                                if (accuracyCircle) {{
+                                    map.removeLayer(accuracyCircle);
+                                }}
+
+                                accuracyCircle = L.circle(location, {{
+                                    radius: accuracy,
+                                    color: '#1976d2',
+                                    fillColor: '#1976d2',
+                                    fillOpacity: 0.12,
+                                    weight: 1
+                                }}).addTo(map);
+                                locationMarker = L.circleMarker(location, {{
+                                    radius: 8,
+                                    color: '#fff',
+                                    weight: 3,
+                                    fillColor: '#1976d2',
+                                    fillOpacity: 1
+                                }}).addTo(map);
+                                locationMarker.bindPopup(
+                                    '현재 위치<br>위도: ' + latitude.toFixed(6) +
+                                    '<br>경도: ' + longitude.toFixed(6)
+                                ).openPopup();
+                                map.setView(location, Math.max(map.getZoom(), 16));
+                                button.disabled = false;
+                                button.textContent = '현재 위치 새로고침';
+                            }},
+                            function (error) {{
+                                var message = '위치를 확인할 수 없습니다.';
+                                if (error.code === error.PERMISSION_DENIED) {{
+                                    message = '브라우저의 위치정보 이용을 허용해 주세요.';
+                                }} else if (error.code === error.POSITION_UNAVAILABLE) {{
+                                    message = '현재 위치 정보를 사용할 수 없습니다.';
+                                }} else if (error.code === error.TIMEOUT) {{
+                                    message = '위치 확인 시간이 초과되었습니다.';
+                                }}
+                                button.disabled = false;
+                                button.textContent = message;
+                                window.setTimeout(function () {{
+                                    button.textContent = '현재 위치 사용';
+                                }}, 3000);
+                            }},
+                            {{ enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }}
+                        );
+                    }});
+                    return button;
+                }}
+            }});
+
+            map.addControl(new LocationControl());
+        }}, 0);
+    </script>
+    """
+    m.get_root().script.add_child(Element(location_script))
 
     return m
 

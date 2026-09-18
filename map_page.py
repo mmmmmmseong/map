@@ -5,7 +5,7 @@ import map
 import sidebar
 
 
-st.title("학교 등산 행사 지도 ⛰️")
+st.title("학교 등산 행사 지도")
 
 settings = sidebar.render_sidebar()
 show_map = settings["show_map"]
