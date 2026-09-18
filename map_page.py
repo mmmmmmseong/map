@@ -12,7 +12,6 @@ show_map = settings["show_map"]
 use_simple_tiles = settings["use_simple_tiles"]
 show_paths = settings["show_paths"]
 show_pline = settings["show_pline"]
-show_location = settings["show_location"]
 selected_courses = settings["selected_courses"]
 
 course_colors = {
@@ -30,7 +29,6 @@ if show_map:
         tiles=tile_name,
         show_paths=show_paths and bool(selected_courses),
         show_pline=show_pline and bool(selected_courses),
-        show_location=show_location,
         selected_courses=selected_courses,
         color=course_colors,
     )

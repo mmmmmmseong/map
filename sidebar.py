@@ -39,7 +39,6 @@ def render_sidebar():
         use_simple_tiles = st.toggle("간소화 지도 사용", value=False)
         show_paths = st.toggle("등산로 지점 표시", value=True)
         show_pline = st.toggle("등산로 연결선 표시", value=True)
-        show_location = st.toggle("내 위치 표시", value=False)
 
     path_data = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
     unique_courses = path_data["코스"].dropna().unique().tolist()
@@ -61,6 +60,5 @@ def render_sidebar():
         "use_simple_tiles": use_simple_tiles,
         "show_paths": show_paths,
         "show_pline": show_pline,
-        "show_location": show_location,
         "selected_courses": selected_courses,
     }
