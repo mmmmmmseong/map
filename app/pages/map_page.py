@@ -1,8 +1,9 @@
 import streamlit as st
 from streamlit_folium import st_folium
 import pandas as pd
-import map
-import sidebar
+from app import config
+from app.components import sidebar
+from app.services import map_service
 
 
 st.title("학교 등산 행사 지도 ⛰️")
@@ -25,7 +26,7 @@ course_colors = {
 tile_name = "Cartodb Positron" if use_simple_tiles else "OpenStreetMap"
 
 if show_map:
-    map_view = map.map(
+    map_view = map_service.map(
         tiles=tile_name,
         show_paths=show_paths and bool(selected_courses),
         show_pline=show_pline and bool(selected_courses),
@@ -33,7 +34,7 @@ if show_map:
         color=course_colors,
     )
     if selected_courses:
-        path_data = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
+        path_data = pd.read_csv(config.PATH_MAP_FILE, encoding="utf-8-sig")
         filtered_path = path_data[path_data["코스"].isin(selected_courses)]
 
     map_column, info_column = st.columns([1.7, 1], gap="large")
@@ -44,7 +45,7 @@ if show_map:
     with info_column:
         if selected_courses:
             for course_code in selected_courses:
-                info = map.course_info.get(f"{course_code}코스", {})
+                info = map_service.course_info.get(f"{course_code}코스", {})
                 st.subheader(f"{course_code}코스 안내")
                 st.write(f"⏱️ **소요 시간**: {info.get('time', '-')}")
                 st.info(f"{info.get('notice', '즐거운 등산 되세요!')}")

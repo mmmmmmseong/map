@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from app import config
 
 
 def _style_sidebar():
@@ -27,12 +28,12 @@ def render_sidebar():
     st.sidebar.title("메뉴")
 
     if st.sidebar.button("지도", use_container_width=True):
-        st.switch_page("map_page.py")
+        st.switch_page("pages/map_page.py")
     with st.sidebar.expander("안내", expanded=False):
         if st.button("이용 방법", use_container_width=True):
-            st.switch_page("info_page.py")
+            st.switch_page("pages/info_page.py")
         if st.button("정보", use_container_width=True):
-            st.switch_page("info_page2.py")
+            st.switch_page("pages/info_page2.py")
 
     with st.sidebar.expander("설정", expanded=False):
         show_map = st.toggle("지도 보기", value=True)
@@ -40,7 +41,7 @@ def render_sidebar():
         show_paths = st.toggle("등산로 지점 표시", value=True)
         show_pline = st.toggle("등산로 연결선 표시", value=True)
 
-    path_data = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
+    path_data = pd.read_csv(config.PATH_MAP_FILE, encoding="utf-8-sig")
     unique_courses = path_data["코스"].dropna().unique().tolist()
     course_options = ["전체 코스 보기"] + unique_courses
     default_course_index = course_options.index("A") if "A" in course_options else 0

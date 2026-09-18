@@ -1,5 +1,5 @@
 import streamlit as st
-import sidebar
+from app.components import sidebar
 
 sidebar.render_sidebar()
 st.header("서비스 소개")
