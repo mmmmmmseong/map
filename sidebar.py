@@ -1,10 +1,6 @@
 import streamlit as st
 import pandas as pd
 
-MAP_PAGE = st.Page("map_page.py", title="지도", default=True)
-INFO_PAGE = st.Page("info_page.py", title="산행 안내")
-INFO_PAGE2 = st.Page("info_page2.py", title="페이지 정보")
-
 
 def _style_sidebar():
     st.markdown(
@@ -31,12 +27,12 @@ def render_sidebar():
     st.sidebar.title("메뉴")
 
     if st.sidebar.button("지도", use_container_width=True):
-        st.switch_page(MAP_PAGE)
+        st.switch_page("map_page.py")
     with st.sidebar.expander("안내", expanded=False):
         if st.button("이용 방법", use_container_width=True):
-            st.switch_page(INFO_PAGE)
+            st.switch_page("info_page.py")
         if st.button("정보", use_container_width=True):
-            st.switch_page(INFO_PAGE2)
+            st.switch_page("info_page2.py")
 
     with st.sidebar.expander("설정", expanded=False):
         show_map = st.toggle("지도 보기", value=True)
