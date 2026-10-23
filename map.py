@@ -4,6 +4,14 @@ import pandas as pd
 import folium
 
 # 2-1. 코스별 세부 정보 사전 설정 (소요시간, 주의사항 등)
+course_names = {
+    "A": "A코스 (인천남동고등학교)",
+    "B": "B코스 (가온어린이공원)",
+    "C": "C코스 (서해랑길)",
+    "D": "D코스 (세븐일레븐)",
+    "E": "E코스 (논현주공1단지)",
+}
+
 course_info = {
     "A코스 (인천남동고등학교)": {
         "time": "4~5분",
@@ -42,7 +50,7 @@ def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_co
     path = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
 
     if selected_courses is None:
-        selected_courses = ["A (인천남동고등학교)", "B (가온어린이공원)", "C (서해랑길)", "D (세븐일레븐)", "E (논현주공1단지)"]
+        selected_courses = list(course_names)
     elif isinstance(selected_courses, str):
         selected_courses = [selected_courses]
 
@@ -91,7 +99,7 @@ def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_co
                     {html.escape(p_name)}
                 </h4>
                 <p style="margin: 2px; font-size: 12px; color: #7f8c8d;">
-                    {html.escape(course_code)}코스
+                    {html.escape(course_names.get(course_code, course_code + "코스"))}
                 </p>
                 <hr style="margin: 5px 0; border: 0; border-top: 1px solid #ddd;">
                  <img src="{img_file}" width="180px"
@@ -116,4 +124,3 @@ def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_co
                     folium.PolyLine(course_points, color=line_color, weight=2.5, opacity=1).add_to(m)
 
     return m
-

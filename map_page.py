@@ -44,8 +44,9 @@ if show_map:
     with info_column:
         if selected_courses:
             for course_code in selected_courses:
-                info = map.course_info.get(f"{course_code}코스", {})
-                st.subheader(f"{course_code}코스 안내")
+                course_name = map.course_names.get(course_code, f"{course_code}코스")
+                info = map.course_info.get(course_name, {})
+                st.subheader(f"{course_name} 안내")
                 st.write(f"⏱️ **소요 시간**: {info.get('time', '-')}")
                 st.info(f"{info.get('notice', '즐거운 등산 되세요!')}")
                 st.warning(
@@ -60,7 +61,7 @@ if show_map:
         for course_code in selected_courses:
             course_path = filtered_path[filtered_path["코스"] == course_code]
             with st.expander(
-                f"{course_code}코스 지점별 포인트 사진",
+                f"{map.course_names.get(course_code, f'{course_code}코스')} 지점별 포인트 사진",
                 expanded=False,
             ):
                 for _, row in course_path.iterrows():
