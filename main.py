@@ -9,7 +9,7 @@ st.set_page_config(
     layout="wide"
 )
 
-st.logo("school_logo.png")
+st.logo("logo2.svg")
 
 pages = [
     st.Page("map_page.py", title="지도", default=True),
