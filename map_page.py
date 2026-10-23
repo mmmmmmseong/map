@@ -44,7 +44,10 @@ if show_map:
     with info_column:
         if selected_courses:
             for course_code in selected_courses:
-                course_name = map.course_names.get(course_code, f"{course_code}코스")
+                course_name = map.course_names.get(
+                    course_code,
+                    f"{course_code}코스",
+                )
                 info = map.course_info.get(course_name, {})
                 st.subheader(f"{course_name} 안내")
                 st.write(f"⏱️ **소요 시간**: {info.get('time', '-')}")
