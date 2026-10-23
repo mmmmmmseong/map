@@ -42,7 +42,7 @@ def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_co
     path = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
 
     if selected_courses is None:
-        selected_courses = ["A", "B", "C", "D", "E"]
+        selected_courses = ["A (인천남동고등학교)", "B (가온어린이공원)", "C (서해랑길)", "D (세븐일레븐)", "E (논현주공1단지)"]
     elif isinstance(selected_courses, str):
         selected_courses = [selected_courses]
 
