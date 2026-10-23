@@ -2,6 +2,7 @@ import streamlit as st
 
 st.set_page_config(
     page_title="남동고 등산 메이트", 
+    page_icon="logo_real.svg",
     layout="wide"
 )
 
