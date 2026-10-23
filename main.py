@@ -1,7 +1,15 @@
 import streamlit as st
+from PIL import Image
 
+logo = Image.open("school_logo.png")
 
-st.set_page_config(page_title="남동고 등산 메이트", layout="wide")
+st.set_page_config(
+    page_title="남동고 등산 메이트", 
+    page_icon=logo,
+    layout="wide"
+)
+
+st.logo("school_logo.png")
 
 pages = [
     st.Page("map_page.py", title="지도", default=True),
