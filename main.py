@@ -5,12 +5,6 @@ st.set_page_config(
     layout="wide"
 )
 
-st.logo(
-    "logo_real.svg",
-    size="large",
-    icon_image="logo_real.svg",
-)
-
 pages = [
     st.Page("map_page.py", title="지도", default=True),
     st.Page("info_page.py", title="산행 안내"),

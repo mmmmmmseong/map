@@ -32,6 +32,8 @@ def _style_sidebar():
 
 def render_sidebar(redirect_to_map_on_course_change=False):
     _style_sidebar()
+    _, logo_column, _ = st.sidebar.columns([1, 4, 1])
+    logo_column.image("logo_real.svg", use_container_width=True)
     st.sidebar.title("메뉴")
 
     if st.sidebar.button("지도", use_container_width=True):
