@@ -2,11 +2,11 @@ import streamlit as st
 
 st.set_page_config(
     page_title="남동고 등산 메이트", 
-    page_icon="logo2.svg",
+    page_icon="logo3.svg",
     layout="wide"
 )
 
-st.logo("logo2.svg")
+st.logo("logo3.svg")
 
 pages = [
     st.Page("map_page.py", title="지도", default=True),
