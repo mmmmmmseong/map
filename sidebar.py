@@ -3,6 +3,13 @@ import pandas as pd
 import map
 
 
+def _on_course_change(redirect_to_map):
+    selected_course = st.session_state["sidebar_course"]
+    st.session_state["_selected_course"] = selected_course
+    if redirect_to_map:
+        st.switch_page("map_page.py")
+
+
 def _style_sidebar():
     st.markdown(
         """
@@ -23,7 +30,7 @@ def _style_sidebar():
     )
 
 
-def render_sidebar():
+def render_sidebar(redirect_to_map_on_course_change=False):
     _style_sidebar()
     st.sidebar.title("메뉴")
 
@@ -45,11 +52,19 @@ def render_sidebar():
     unique_courses = path_data["코스"].dropna().unique().tolist()
     all_courses = "전체 코스 보기"
     course_options = [all_courses] + unique_courses
-    default_course_index = 0
+    selected_course = st.session_state.get("_selected_course", all_courses)
+    default_course_index = (
+        course_options.index(selected_course)
+        if selected_course in course_options
+        else 0
+    )
     selected_course = st.sidebar.selectbox(
         "가고 싶은 코스를 선택하세요",
         course_options,
         index=default_course_index,
+        key="sidebar_course",
+        on_change=_on_course_change,
+        args=(redirect_to_map_on_course_change,),
         format_func=lambda course: (
             course
             if course == all_courses

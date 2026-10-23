@@ -1,7 +1,7 @@
 import streamlit as st
 import sidebar
 
-sidebar.render_sidebar()
+sidebar.render_sidebar(redirect_to_map_on_course_change=True)
 st.title("산행 안내")
 st.write("학교 등산 행사 지도를 이용하기 전에 아래 내용을 확인하세요.")
 

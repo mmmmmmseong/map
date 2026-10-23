@@ -1,7 +1,7 @@
 import streamlit as st
 import sidebar
 
-sidebar.render_sidebar()
+sidebar.render_sidebar(redirect_to_map_on_course_change=True)
 st.header("서비스 소개")
 st.markdown(
 	"""
@@ -32,6 +32,5 @@ st.markdown(
     """
 )
 st.caption("듬배산에 대한 더 자세한 정보는 [인천광역시 남동구청 블로그](https://blog.naver.com/namdongdistrict/223735076000)에서 확인하세요.")
-
 
 
