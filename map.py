@@ -69,7 +69,7 @@ def map(tiles="Cartodb Positron", show_paths=True, show_pline=False, selected_co
 
     m = folium.Map(
         location=[37.407576,126.719651],
-        zoom_start=13,
+        zoom_start=15,
         tiles=tiles
     )
 
