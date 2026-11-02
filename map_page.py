@@ -22,7 +22,7 @@ course_colors = {
     "E": "purple",
 }
 
-tile_name = "Cartodb Positron" if use_simple_tiles else "OpenStreetMap"
+tile_name = "Esri.WorldGrayCanvas" if use_simple_tiles else "OpenStreetMap"
 
 if show_map:
     map_view = map.map(
