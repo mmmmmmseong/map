@@ -46,7 +46,7 @@ course_info = {
 }
 
 
-def map(tiles="Esri.WorldGrayCanvas", show_paths=True, show_pline=False, selected_courses=None, color=None):
+def map(tiles="OpenStreetMap", show_paths=True, show_pline=False, selected_courses=None, color=None):
     path = pd.read_csv("PathMap.csv", encoding="utf-8-sig")
 
     if selected_courses is None:

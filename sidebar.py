@@ -46,7 +46,6 @@ def render_sidebar(redirect_to_map_on_course_change=False):
 
     with st.sidebar.expander("설정", expanded=False):
         show_map = st.toggle("지도 보기", value=True)
-        use_simple_tiles = st.toggle("간소화 지도 사용", value=False)
         show_paths = st.toggle("등산로 지점 표시", value=True)
         show_pline = st.toggle("등산로 연결선 표시", value=True)
 
@@ -81,7 +80,6 @@ def render_sidebar(redirect_to_map_on_course_change=False):
 
     return {
         "show_map": show_map,
-        "use_simple_tiles": use_simple_tiles,
         "show_paths": show_paths,
         "show_pline": show_pline,
         "selected_courses": selected_courses,

@@ -9,7 +9,6 @@ st.title("학교 등산 행사 지도")
 
 settings = sidebar.render_sidebar()
 show_map = settings["show_map"]
-use_simple_tiles = settings["use_simple_tiles"]
 show_paths = settings["show_paths"]
 show_pline = settings["show_pline"]
 selected_courses = settings["selected_courses"]
@@ -22,11 +21,9 @@ course_colors = {
     "E": "purple",
 }
 
-tile_name = "Esri.WorldGrayCanvas" if use_simple_tiles else "OpenStreetMap"
-
 if show_map:
     map_view = map.map(
-        tiles=tile_name,
+        tiles="OpenStreetMap",
         show_paths=show_paths and bool(selected_courses),
         show_pline=show_pline and bool(selected_courses),
         selected_courses=selected_courses,
